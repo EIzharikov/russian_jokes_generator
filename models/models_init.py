@@ -33,7 +33,7 @@ class CustomRuGPT3Model(Model):
     def _download_model(self):
         gdown.download(
             id="19Glj9TXG44eG0HAHS3PPGVxn41O2gNYY",
-            output="models/models_config/custom/pytorch_model.bin",
+            output="models_config/custom/pytorch_model.bin",
         )
         self.model_path = "models/models_config/custom"
 
@@ -97,7 +97,7 @@ class PretrainedModel(Model):
     def _download_model(self):
         gdown.download(
             id="1iJtv6WzShrn23M_ggvtFhXon3dopBA9x",
-            output="models/models_config/pretrained/pytorch_model.bin",
+            output="models_config/pretrained/pytorch_model.bin",
         )
         self.model_path = "models/models_config/pretrained"
 
@@ -151,3 +151,7 @@ class PretrainedModel(Model):
             ),
         )[0].split("\n")[0]
         return output
+
+
+m = CustomRuGPT3Model()
+print(m.generate_joke("Наливаю чай", "eat", 70))
