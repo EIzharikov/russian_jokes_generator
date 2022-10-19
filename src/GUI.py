@@ -80,6 +80,7 @@ class ChatApplication:
         send_button.place(relx=0.77, rely=0.008, relheight=0.06, relwidth=0.22)
 
         # option models menu
+
         model_opt_list = ["Чужая модель", "Наша модель"]
         m_variable = StringVar(self.window)
         m_variable.set(model_opt_list[0])
@@ -100,7 +101,7 @@ class ChatApplication:
 
         m_variable.trace("w", m_callback)
 
-        # option models menu
+        # option length menu
         length_opt_list = [i for i in range(30, 110, 10)]
         l_variable = StringVar(self.window)
         l_variable.set(length_opt_list[0])
