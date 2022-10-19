@@ -1,0 +1,1 @@
+# Russian Jokes Generator
