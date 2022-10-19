@@ -1,16 +1,10 @@
 from tkinter import *
 
 from message_request import MessageRequest
-
-BG_GRAY = "#ABB2B9"
-BG_COLOR = "#17202A"
-TEXT_COLOR = "#EAECEE"
-
-FONT = "Helvetica 14"
-FONT_BOLD = "Helvetica 13 bold"
+from constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD
 
 
-class ChatApplication:
+class Application:
     def __init__(self):
         self.window = Tk()
         self._setup_main_window()
@@ -20,7 +14,7 @@ class ChatApplication:
         self.window.mainloop()
 
     def _setup_main_window(self):
-        self.window.title("Chat")
+        self.window.title("JOKE GENERATOR")
         self.window.resizable(width=False, height=False)
         self.window.configure(width=470, height=620, bg=BG_COLOR)
 
@@ -29,7 +23,7 @@ class ChatApplication:
             self.window,
             bg=BG_COLOR,
             fg=TEXT_COLOR,
-            text="Welcome",
+            text="Пишите анекдот, а мы его продолжим!",
             font=FONT_BOLD,
             pady=10,
         )
@@ -110,7 +104,7 @@ class ChatApplication:
         l_opt.place(relx=0.50, rely=0.9, relheight=0.06, relwidth=0.14)
 
         def l_callback(*args):
-            self.mes_request.length = l_variable.get()
+            self.mes_request.length = int(l_variable.get())
 
         l_variable.trace("w", l_callback)
 
@@ -154,10 +148,9 @@ class ChatApplication:
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, user_message)
         self.text_widget.configure(state=DISABLED)
-
-        # !!!
+        if self.mes_request.process_request() == 0:
+            self.mes_request._stats()
         message_from_model = f"Анекдот: {self.mes_request.process_request()}\n\n"
-        # !!!
 
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, message_from_model)
@@ -167,5 +160,5 @@ class ChatApplication:
 
 
 if __name__ == "__main__":
-    app = ChatApplication()
+    app = Application()
     app.run()

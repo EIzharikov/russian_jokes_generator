@@ -15,3 +15,11 @@ class MessageRequest:
             return self.custom_model.generate_joke(self.text, self.tag, self.length)
         else:
             return self.pretrained_model.generate_joke(self.text, self.length)
+        # return self.model_type, self.length, self.tag, self.text
+
+    def _stats(self):
+        print(self.model_type, type(self.length), self.tag, self.text)
+
+if __name__ == '__main__':
+    mes = MessageRequest()
+
