@@ -1,3 +1,6 @@
+"""
+Models implementation
+"""
 import re
 from pathlib import Path
 from abc import ABC, abstractmethod
@@ -9,6 +12,9 @@ from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
 
 
 class Model(ABC):
+    """
+    Abstract class for Models
+    """
     @abstractmethod
     def _download_model(self):
         pass
@@ -23,7 +29,7 @@ class Model(ABC):
 
     @staticmethod
     @abstractmethod
-    def _prepare_prompt(text, tag):
+    def _prepare_prompt(text, tag=None):
         pass
 
 
@@ -113,7 +119,7 @@ class PretrainedModel(Model):
         ), GPT2LMHeadModel.from_pretrained(self.model_path)
 
     @staticmethod
-    def _prepare_prompt(text):
+    def _prepare_prompt(text,tag=None):
         prompt = f"<|startoftext|>{text}"
         return prompt
 

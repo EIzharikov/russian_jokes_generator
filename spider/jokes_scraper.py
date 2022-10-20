@@ -1,3 +1,6 @@
+"""
+Scraper implementation
+"""
 import re
 
 import pandas as pd
@@ -18,6 +21,9 @@ class JokesSpider:
         self.texts = []
 
     def get_links(self):
+        """
+        Getting all links
+        """
         for link in tqdm(START_URLS):
             self.urls.append(link)
             bs_page = fetch_page(link)
@@ -29,6 +35,9 @@ class JokesSpider:
         return
 
     def parse(self):
+        """
+        Parsing links
+        """
         self.get_links()
         for url in tqdm(self.urls):
             response_bs = fetch_page(url)
@@ -41,17 +50,26 @@ class JokesSpider:
         return self.texts
 
     def _turn_to_tabular(self):
+        """
+        Turning texts to tabular format
+        """
         data = pd.DataFrame(self.texts)
         return data
 
     def write_data(self):
+        """
+        Saving data in anecdotes_dataset.csv
+        """
         data = self._turn_to_tabular()
         data.to_csv("anecdotes_dataset.csv")
         return
 
 
 def fetch_page(url):
-    response = requests.get(url, headers=HEADERS).text
+    """
+    Getting the soup
+    """
+    response = requests.get(url, headers=HEADERS,timeout=15).text
     soup = BeautifulSoup(response, features="lxml")
     return soup
 
