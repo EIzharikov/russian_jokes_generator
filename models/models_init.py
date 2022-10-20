@@ -1,10 +1,11 @@
 import re
-import gdown
-
+from pathlib import Path
 from abc import ABC, abstractmethod
 
-from pathlib import Path
+import gdown
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
 
 
 class Model(ABC):
@@ -28,22 +29,22 @@ class Model(ABC):
 
 class CustomRuGPT3Model(Model):
     def __init__(self):
-        self.model_path = ""
+        self.model_path = CUSTOM_MODEL_FOLDER
+        self.tokenizer, self.model = self._load_tokenizer_and_model()
 
     def _download_model(self):
         gdown.download(
             id="19Glj9TXG44eG0HAHS3PPGVxn41O2gNYY",
-            output="models_config/custom/pytorch_model.bin",
+            output=str(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin'),
         )
-        self.model_path = "models/models_config/custom"
 
     def _is_downloaded_model(self):
-        if not Path("models/models_config/custom/pytorch_model.bin").is_file():
+        if not Path(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin').exists():
             return 0
         return 1
 
     def _load_tokenizer_and_model(self):
-        if not self.model_path:
+        if not self._is_downloaded_model():
             self._download_model()
         return GPT2Tokenizer.from_pretrained(
             self.model_path
@@ -61,10 +62,9 @@ class CustomRuGPT3Model(Model):
         if max_len not in [30, 40, 50, 60, 70, 80, 90, 100]:
             return 0
 
-        tokenizer, model = self._load_tokenizer_and_model()
         prompt = self._prepare_prompt(text, tag)
-        input_ids = tokenizer.encode(prompt, return_tensors="pt")
-        result = model.generate(
+        input_ids = self.tokenizer.encode(prompt, return_tensors="pt")
+        result = self.model.generate(
             input_ids,
             num_return_sequences=1,
             max_length=max_len,
@@ -82,7 +82,7 @@ class CustomRuGPT3Model(Model):
             re.sub(
                 r"<\|startoftext[\w-]*\|>|©.*",
                 "",
-                list(map(tokenizer.decode, result))[0],
+                list(map(self.tokenizer.decode, result))[0],
                 count=1,
             ),
         )[0].split("\n")[0]
@@ -92,22 +92,21 @@ class CustomRuGPT3Model(Model):
 
 class PretrainedModel(Model):
     def __init__(self):
-        self.model_path = ""
+        self.model_path = PRETRAINED_MODEL_FOLDER
 
     def _download_model(self):
         gdown.download(
             id="1iJtv6WzShrn23M_ggvtFhXon3dopBA9x",
-            output="models_config/pretrained/pytorch_model.bin",
+            output=str(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin'),
         )
-        self.model_path = "models/models_config/pretrained"
 
     def _is_downloaded_model(self):
-        if not Path("models/models_config/pretrained/pytorch_model.bin").is_file():
+        if not Path(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin').exists():
             return 0
         return 1
 
     def _load_tokenizer_and_model(self):
-        if not self.model_path:
+        if not self._is_downloaded_model:
             self._download_model()
         return GPT2Tokenizer.from_pretrained(
             self.model_path
@@ -153,5 +152,5 @@ class PretrainedModel(Model):
         return output
 
 
-m = CustomRuGPT3Model()
-print(m.generate_joke("Наливаю чай", "eat", 70))
+if __name__ == '__main__':
+    pass
