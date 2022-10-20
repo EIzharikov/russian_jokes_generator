@@ -34,6 +34,9 @@ class Model(ABC):
 
 
 class CustomRuGPT3Model(Model):
+    """
+    Custom Model implementation
+    """
     def __init__(self):
         self.model_path = CUSTOM_MODEL_FOLDER
         self.tokenizer, self.model = self._load_tokenizer_and_model()
@@ -97,6 +100,9 @@ class CustomRuGPT3Model(Model):
 
 
 class PretrainedModel(Model):
+    """
+    Pretrained Model implementation
+    """
     def __init__(self):
         self.model_path = PRETRAINED_MODEL_FOLDER
 

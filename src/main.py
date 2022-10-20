@@ -1,7 +1,7 @@
 """
 Main part implementation
 """
-from src.GUI import Application
+from src.gui import Application
 
 if __name__ == '__main__':
     app = Application()

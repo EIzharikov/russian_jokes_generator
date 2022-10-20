@@ -32,7 +32,6 @@ class JokesSpider:
                 self.urls.append(next_page.get("href"))
                 bs_page = fetch_page(next_page.get("href"))
                 next_page = bs_page.select_one("span.page_next a")
-        return
 
     def parse(self):
         """
@@ -62,7 +61,6 @@ class JokesSpider:
         """
         data = self._turn_to_tabular()
         data.to_csv("anecdotes_dataset.csv")
-        return
 
 
 def fetch_page(url):
