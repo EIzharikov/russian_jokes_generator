@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
+from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
 
 
 class Model(ABC):
@@ -35,7 +35,7 @@ class CustomRuGPT3Model(Model):
     def _download_model(self):
         gdown.download(
             id="19Glj9TXG44eG0HAHS3PPGVxn41O2gNYY",
-            output="models_config/custom/pytorch_model.bin",
+            output=str(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin'),
         )
 
     def _is_downloaded_model(self):
@@ -97,7 +97,7 @@ class PretrainedModel(Model):
     def _download_model(self):
         gdown.download(
             id="1iJtv6WzShrn23M_ggvtFhXon3dopBA9x",
-            output="models_config/pretrained/pytorch_model.bin",
+            output=str(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin'),
         )
 
     def _is_downloaded_model(self):
@@ -154,5 +154,4 @@ class PretrainedModel(Model):
 
 if __name__ == '__main__':
     m = CustomRuGPT3Model()
-    print(m.generate_joke("Наливаю чай", 'Еда', 40))
-    print(m.generate_joke("Наливаю хлеб", 'Еда', 70))
+

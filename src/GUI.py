@@ -1,7 +1,7 @@
 from tkinter import *
 
 from message_request import MessageRequest
-from constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR
 
 
 class Application:
@@ -47,17 +47,12 @@ class Application:
         self.text_widget.place(relheight=0.745, relwidth=1, rely=0.08)
         self.text_widget.configure(cursor="arrow", state=DISABLED)
 
-        # scroll bar
-        scrollbar = Scrollbar(self.text_widget)
-        scrollbar.place(relheight=1, relx=0.974)
-        scrollbar.configure(command=self.text_widget.yview)
-
         # bottom label
         bottom_label = Label(self.window, bg=BG_GRAY, height=30)
         bottom_label.place(relwidth=1, rely=0.825)
 
         # message entry box
-        self.msg_entry = Entry(bottom_label, bg="#2C3E50", fg=TEXT_COLOR, font=FONT)
+        self.msg_entry = Entry(bottom_label, bg= MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
         self.msg_entry.bind("<Return>", self._on_enter_pressed)
@@ -148,10 +143,8 @@ class Application:
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, user_message)
         self.text_widget.configure(state=DISABLED)
-        if self.mes_request.process_request() == 0:
-            self.mes_request._stats()
-        message_from_model = f"Анекдот: {self.mes_request.process_request()}\n\n"
 
+        message_from_model = f"Анекдот: {self.mes_request.process_request()}\n\n"
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, message_from_model)
         self.text_widget.configure(state=DISABLED)

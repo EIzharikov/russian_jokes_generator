@@ -20,6 +20,6 @@ class MessageRequest:
     def _stats(self):
         print(self.model_type, type(self.length), self.tag, self.text)
 
+
 if __name__ == '__main__':
     mes = MessageRequest()
-
