@@ -16,7 +16,7 @@ class Application:
     def _setup_main_window(self):
         self.window.title("JOKE GENERATOR")
         self.window.resizable(width=False, height=False)
-        self.window.configure(width=470, height=620, bg=BG_COLOR)
+        self.window.configure(width=800, height=600, bg=BG_COLOR)
 
         # head label
         head_label = Label(
@@ -30,7 +30,7 @@ class Application:
         head_label.place(relwidth=1)
 
         # tiny divider
-        line = Label(self.window, width=450, bg=BG_GRAY)
+        line = Label(self.window, width=800, bg=BG_GRAY)
         line.place(relwidth=1, rely=0.07, relheight=0.012)
 
         # text widget
@@ -78,12 +78,12 @@ class Application:
         m_opt.place(relx=0.64, rely=0.9, relheight=0.06, relwidth=0.35)
 
         def m_callback(*args):
-            self.mes_request.model_type = m_variable.get()
+            self.mes_request.set_model_type(m_variable.get())
             if m_variable.get() == "Наша модель":
                 create_tag_opt_list()
-                self.mes_request.tag = "Еда"
+                self.mes_request.set_tag("Еда")
             else:
-                self.mes_request.tag = None
+                self.mes_request.set_tag(None)
                 tag_opt = Label(text="")
                 tag_opt.config(bg=BG_GRAY, font=FONT_BOLD)
                 tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
@@ -91,7 +91,7 @@ class Application:
         m_variable.trace("w", m_callback)
 
         # option length menu
-        length_opt_list = [i for i in range(30, 110, 10)]
+        length_opt_list = list(range(30, 110, 10))
         l_variable = StringVar(self.window)
         l_variable.set(length_opt_list[0])
         l_opt = OptionMenu(self.window, l_variable, *length_opt_list)
@@ -99,7 +99,7 @@ class Application:
         l_opt.place(relx=0.50, rely=0.9, relheight=0.06, relwidth=0.14)
 
         def l_callback(*args):
-            self.mes_request.length = int(l_variable.get())
+            self.mes_request.set_length(int(l_variable.get()))
 
         l_variable.trace("w", l_callback)
 
@@ -125,13 +125,13 @@ class Application:
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
             def tag_callback(*args):
-                self.mes_request.tag = tag_variable.get()
+                self.mes_request.set_tag(tag_variable.get())
 
             tag_variable.trace("w", tag_callback)
 
     def _on_enter_pressed(self, event):
         msg = self.msg_entry.get()
-        self.mes_request.text = msg
+        self.mes_request.set_text(msg)
         self._insert_message(msg)
 
     def _insert_message(self, msg):

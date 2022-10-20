@@ -1,8 +1,8 @@
 import re
-import gdown
-
-from abc import ABC, abstractmethod
 from pathlib import Path
+from abc import ABC, abstractmethod
+
+import gdown
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
@@ -153,5 +153,4 @@ class PretrainedModel(Model):
 
 
 if __name__ == '__main__':
-    m = CustomRuGPT3Model()
-
+    pass
