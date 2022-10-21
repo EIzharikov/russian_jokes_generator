@@ -1,19 +1,31 @@
-from tkinter import *
+"""
+GUI implementation
+"""
+from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
 from message_request import MessageRequest
 from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR
 
 
 class Application:
+    """
+    Application implementation
+    """
     def __init__(self):
         self.window = Tk()
         self._setup_main_window()
         self.mes_request = MessageRequest()
 
     def run(self):
+        """
+        Runs the app
+        """
         self.window.mainloop()
 
     def _setup_main_window(self):
+        """
+        The setup of main window
+        """
         self.window.title("JOKE GENERATOR")
         self.window.resizable(width=False, height=False)
         self.window.configure(width=800, height=600, bg=BG_COLOR)
@@ -52,7 +64,7 @@ class Application:
         bottom_label.place(relwidth=1, rely=0.825)
 
         # message entry box
-        self.msg_entry = Entry(bottom_label, bg= MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
+        self.msg_entry = Entry(bottom_label, bg=MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
         self.msg_entry.bind("<Return>", self._on_enter_pressed)
@@ -106,6 +118,9 @@ class Application:
         # option tag menu
 
         def create_tag_opt_list():
+            """
+            Additional creating the optional list with tags
+            """
             tag_opt_list = [
                 "Еда",
                 "Политика",
@@ -130,11 +145,17 @@ class Application:
             tag_variable.trace("w", tag_callback)
 
     def _on_enter_pressed(self, event):
+        """
+        Works when enter is pressed
+        """
         msg = self.msg_entry.get()
         self.mes_request.set_text(msg)
         self._insert_message(msg)
 
     def _insert_message(self, msg):
+        """
+        Inserts the message
+        """
         if not msg:
             return
 
@@ -144,7 +165,7 @@ class Application:
         self.text_widget.insert(END, user_message)
         self.text_widget.configure(state=DISABLED)
 
-        message_from_model = f"Анекдот: {self.mes_request.process_request()}\n\n"
+        message_from_model = f"Анекдот: {'aaa'}\n\n"
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, message_from_model)
         self.text_widget.configure(state=DISABLED)

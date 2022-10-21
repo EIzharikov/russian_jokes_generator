@@ -1,3 +1,6 @@
+"""
+Models implementation
+"""
 import re
 from pathlib import Path
 from abc import ABC, abstractmethod
@@ -9,6 +12,10 @@ from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
 
 
 class Model(ABC):
+    """
+    Abstract class for Models
+    """
+
     @abstractmethod
     def _download_model(self):
         pass
@@ -21,13 +28,12 @@ class Model(ABC):
     def _load_tokenizer_and_model(self):
         pass
 
-    @staticmethod
-    @abstractmethod
-    def _prepare_prompt(text, tag):
-        pass
-
 
 class CustomRuGPT3Model(Model):
+    """
+    Custom Model implementation
+    """
+
     def __init__(self):
         self.model_path = CUSTOM_MODEL_FOLDER
         self.tokenizer, self.model = self._load_tokenizer_and_model()
@@ -56,10 +62,17 @@ class CustomRuGPT3Model(Model):
         return prompt
 
     def generate_joke(self, text: str, tag: str, max_len: int):
+        """
+        Generates the joke
+        :param text: string with text
+        :param tag: tag for type of joke
+        :param max_len: max length of final joke
+        :return: the final joke
+        """
         if not isinstance(text, str) or not isinstance(max_len, int):
             return 0
 
-        if max_len not in [30, 40, 50, 60, 70, 80, 90, 100]:
+        if max_len not in list(range(30, 110, 10)):
             return 0
 
         prompt = self._prepare_prompt(text, tag)
@@ -91,6 +104,10 @@ class CustomRuGPT3Model(Model):
 
 
 class PretrainedModel(Model):
+    """
+    Pretrained Model implementation
+    """
+
     def __init__(self):
         self.model_path = PRETRAINED_MODEL_FOLDER
 
@@ -118,6 +135,12 @@ class PretrainedModel(Model):
         return prompt
 
     def generate_joke(self, text: str, max_len: int):
+        """
+        Generates the joke
+        :param text: string with text
+        :param max_len: max length of final joke
+        :return: the final joke
+        """
         if not isinstance(text, str) or not isinstance(max_len, int):
             return 0
 

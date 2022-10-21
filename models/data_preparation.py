@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     # splitting data into training and validation sets
     training_data = result_ds.sample(frac=0.8, random_state=25)
-    validation_data = result_ds.drop(training_data.index)
+    VALIDATION_DATA = result_ds.drop(training_data.index)
 
     # writing sets to txt files
     training_data.to_csv(
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         index=False,
         mode="a",
     )
-    validation_data.to_csv(
+    VALIDATION_DATA.to_csv(
         "models/models_config/custom/valid.txt",
         sep="\n",
         header=False,
