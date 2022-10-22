@@ -46,7 +46,7 @@ class MessageRequest:
         """
         Set max length in message request
         """
-        self._length = length
+        self._length = int(length)
 
     def set_tag(self, tag):
         """

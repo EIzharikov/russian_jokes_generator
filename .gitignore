@@ -140,3 +140,7 @@ dmypy.json
 
 models/models_config/custom/pytorch_model.bin
 models/models_config/pretrained/pytorch_model.bin
+
+# temp files with jokes
+
+jokes_history
