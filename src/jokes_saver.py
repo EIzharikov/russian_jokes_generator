@@ -18,7 +18,7 @@ class JokesSaver:
         :param final_joke: full joke
         :return: nothing
         """
-        with open(self._path_to_save / 'jokes_history', 'a', encoding='UTF-8') as file:
+        with open(self._path_to_save / 'jokes_history.txt', 'a', encoding='UTF-8') as file:
             file.write(f'Начало шутки:  {joke_beginning}\n'
                        f'Вся шутка: {final_joke}\n'
                        f'<------------------------------------------->\n')

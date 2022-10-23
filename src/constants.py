@@ -15,3 +15,16 @@ MESSAGE_ENTRY_BOX_COLOR = "#2C3E50"
 
 FONT = "Helvetica 14"
 FONT_BOLD = "Helvetica 13 bold"
+
+TAGS_DICT = {
+    "Еда": "eat",
+    "Политика": "politics",
+    "Коты": "cats",
+    "Пошлые": "poshlye",
+    "Про работу": "pro-rabotu",
+    "Компьтеры": "pc",
+    "Дети": "children",
+    "Про Штирлеца": "pro-shtirlica",
+    "Про студентов": "pro-studentov",
+    "Про соседей": "pro-sosedey"
+}

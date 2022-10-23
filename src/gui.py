@@ -4,7 +4,7 @@ GUI implementation
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
 from message_request import MessageRequest
-from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
 from src.jokes_saver import JokesSaver
 
 
@@ -142,7 +142,7 @@ class Application:
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
             def tag_callback(*args):
-                self.mes_request.set_tag(tag_variable.get())
+                self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
 
