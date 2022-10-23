@@ -4,7 +4,8 @@ GUI implementation
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
 from message_request import MessageRequest
-from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
+from src.jokes_saver import JokesSaver
 
 
 class Application:
@@ -15,6 +16,7 @@ class Application:
         self.window = Tk()
         self._setup_main_window()
         self.mes_request = MessageRequest()
+        self.jokes_saver = JokesSaver()
 
     def run(self):
         """
@@ -140,7 +142,7 @@ class Application:
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
             def tag_callback(*args):
-                self.mes_request.set_tag(tag_variable.get())
+                self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
 
@@ -165,10 +167,13 @@ class Application:
         self.text_widget.insert(END, user_message)
         self.text_widget.configure(state=DISABLED)
 
-        message_from_model = f"Анекдот: {'aaa'}\n\n"
+        full_joke = self.mes_request.process_request()
+        message_from_model = f"Анекдот: {full_joke}\n\n"
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, message_from_model)
         self.text_widget.configure(state=DISABLED)
+
+        self.jokes_saver.save_joke(msg, full_joke)
 
         self.text_widget.see(END)
 

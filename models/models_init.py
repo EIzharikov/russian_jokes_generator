@@ -69,7 +69,9 @@ class CustomRuGPT3Model(Model):
         :param max_len: max length of final joke
         :return: the final joke
         """
-        if not isinstance(text, str) or not isinstance(max_len, int):
+        if not isinstance(text, str) \
+                or not isinstance(max_len, int) \
+                or not isinstance(tag, str):
             return 0
 
         if max_len not in list(range(30, 110, 10)):
@@ -110,6 +112,7 @@ class PretrainedModel(Model):
 
     def __init__(self):
         self.model_path = PRETRAINED_MODEL_FOLDER
+        self.tokenizer, self.model = self._load_tokenizer_and_model()
 
     def _download_model(self):
         gdown.download(
@@ -147,10 +150,9 @@ class PretrainedModel(Model):
         if max_len not in [30, 40, 50, 60, 70, 80, 90, 100]:
             return 0
 
-        tokenizer, model = self._load_tokenizer_and_model()
         prompt = self._prepare_prompt(text)
-        input_ids = tokenizer.encode(prompt, return_tensors="pt")
-        result = model.generate(
+        input_ids = self.tokenizer.encode(prompt, return_tensors="pt")
+        result = self.model.generate(
             input_ids,
             num_return_sequences=1,
             max_length=max_len,
@@ -168,7 +170,7 @@ class PretrainedModel(Model):
             re.sub(
                 r"<\|startoftext[\w-]*\|>|©.*",
                 "",
-                list(map(tokenizer.decode, result))[0],
+                list(map(self.tokenizer.decode, result))[0],
                 count=1,
             ),
         )[0].split("\n")[0]
@@ -177,3 +179,4 @@ class PretrainedModel(Model):
 
 if __name__ == '__main__':
     pass
+

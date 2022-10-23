@@ -8,6 +8,7 @@ class MessageRequest:
     """
     Message Request implementation
     """
+
     def __init__(self):
         self._custom_model = CustomRuGPT3Model()
         self._pretrained_model = PretrainedModel()
@@ -21,6 +22,9 @@ class MessageRequest:
                f'Max length of text is {self._length}\n' \
                f'Tag is {self._tag}\n' \
                f'Text of the message is {self._text}'
+
+    def get_settings(self):
+        return self._text, self._tag, self._length, self._model_type
 
     def process_request(self):
         """
@@ -46,7 +50,7 @@ class MessageRequest:
         """
         Set max length in message request
         """
-        self._length = length
+        self._length = int(length)
 
     def set_tag(self, tag):
         """
