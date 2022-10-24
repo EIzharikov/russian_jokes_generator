@@ -4,7 +4,7 @@ Jokes saver implementation
 from src.constants import PATH_TO_SAVE
 
 
-class JokesSaver:
+class JokesSaver:  # pylint: disable=too-few-public-methods
     """
     Jokes saver implementation
     """

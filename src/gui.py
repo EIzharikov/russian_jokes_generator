@@ -9,7 +9,7 @@ from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT,\
 from src.jokes_saver import JokesSaver
 
 
-class Application:
+class Application: # pylint: disable=too-few-public-methods
     """
     Application implementation
     """
@@ -93,6 +93,7 @@ class Application:
         m_opt.place(relx=0.64, rely=0.9, relheight=0.06, relwidth=0.35)
 
         def m_callback(*args):
+            """ Function with unused argument. """
             self.mes_request.set_model_type(m_variable.get())
             if m_variable.get() == "Наша модель":
                 create_tag_opt_list()
@@ -114,6 +115,7 @@ class Application:
         l_opt.place(relx=0.50, rely=0.9, relheight=0.06, relwidth=0.14)
 
         def l_callback(*args):
+            """ Function with unused argument. """
             self.mes_request.set_length(int(l_variable.get()))
 
         l_variable.trace("w", l_callback)
@@ -143,6 +145,7 @@ class Application:
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
             def tag_callback(*args):
+                """ Function with unused argument. """
                 self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
