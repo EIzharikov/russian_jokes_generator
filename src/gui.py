@@ -19,6 +19,28 @@ class Application: # pylint: disable=too-few-public-methods
         self.mes_request = MessageRequest()
         self.jokes_saver = JokesSaver()
 
+        self.text_widget = Text(
+            self.window,
+            width=20,
+            height=2,
+            bg=BG_COLOR,
+            fg=TEXT_COLOR,
+            font=FONT,
+            padx=5,
+            pady=5,
+        )
+
+        self.bottom_label = Label(
+            self.window,
+            bg=BG_GRAY,
+            height=30)
+
+        self.msg_entry = Entry(
+            self.bottom_label,
+            bg=MESSAGE_ENTRY_BOX_COLOR,
+            fg=TEXT_COLOR,
+            font=FONT)
+
     def run(self):
         """
         Runs the app
@@ -56,25 +78,14 @@ class Application: # pylint: disable=too-few-public-methods
 
     def _create_text_widget(self):
         # text widget
-        self.text_widget = Text(
-            self.window,
-            width=20,
-            height=2,
-            bg=BG_COLOR,
-            fg=TEXT_COLOR,
-            font=FONT,
-            padx=5,
-            pady=5,
-        )
+
         self.text_widget.place(relheight=0.745, relwidth=1, rely=0.08)
         self.text_widget.configure(cursor="arrow", state=DISABLED)
 
     def _create_message_entry_box(self):
         # bottom label
-        self.bottom_label = Label(self.window, bg=BG_GRAY, height=30)
         self.bottom_label.place(relwidth=1, rely=0.825)
         # message entry box
-        self.msg_entry = Entry(self.bottom_label, bg=MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
         self.msg_entry.bind("<Return>", self._on_enter_pressed)
@@ -155,7 +166,7 @@ class Application: # pylint: disable=too-few-public-methods
 
             tag_variable.trace("w", tag_callback)
 
-    def _on_enter_pressed(self, event):
+    def _on_enter_pressed(self, event):  # pylint: disable=unused-argument
         """
         Works when enter is pressed
         """
@@ -189,4 +200,3 @@ class Application: # pylint: disable=too-few-public-methods
 
 if __name__ == "__main__":
     pass
-    print(TAGS_DICT.get('Еда'))
