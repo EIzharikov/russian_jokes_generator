@@ -14,7 +14,7 @@ class JokesSaver:
     def save_joke(self, joke_beginning, final_joke):
         """
         Saves jokes
-        :param joke_beginning: the beginnig of joke
+        :param joke_beginning: the beginning of joke
         :param final_joke: full joke
         :return: nothing
         """
