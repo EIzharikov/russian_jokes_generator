@@ -4,18 +4,18 @@ GUI implementation
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
 from src.message_request import MessageRequest
-from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT,\
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, \
     FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
 from src.jokes_saver import JokesSaver
 
 
-class Application: # pylint: disable=too-few-public-methods
+class Application:  # pylint: disable=too-few-public-methods
     """
     Application implementation
     """
+
     def __init__(self):
         self.window = Tk()
-        self._setup_main_window()
         self.mes_request = MessageRequest()
         self.jokes_saver = JokesSaver()
 
@@ -40,6 +40,8 @@ class Application: # pylint: disable=too-few-public-methods
             bg=MESSAGE_ENTRY_BOX_COLOR,
             fg=TEXT_COLOR,
             font=FONT)
+
+        self._setup_main_window()
 
     def run(self):
         """
@@ -78,7 +80,6 @@ class Application: # pylint: disable=too-few-public-methods
 
     def _create_text_widget(self):
         # text widget
-
         self.text_widget.place(relheight=0.745, relwidth=1, rely=0.08)
         self.text_widget.configure(cursor="arrow", state=DISABLED)
 
