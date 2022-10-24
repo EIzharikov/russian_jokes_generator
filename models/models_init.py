@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import gdown
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER
+from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER, TAGS_DICT
 
 
 class Model(ABC):
@@ -45,9 +45,9 @@ class CustomRuGPT3Model(Model):
         )
 
     def _is_downloaded_model(self):
-        if not Path(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin').exists():
-            return 0
-        return 1
+        if Path(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin').exists():
+            return True
+        return False
 
     def _load_tokenizer_and_model(self):
         if not self._is_downloaded_model():
@@ -75,6 +75,9 @@ class CustomRuGPT3Model(Model):
             return 0
 
         if max_len not in list(range(30, 110, 10)):
+            return 0
+
+        if tag not in list(TAGS_DICT.values()):
             return 0
 
         prompt = self._prepare_prompt(text, tag)
@@ -121,12 +124,12 @@ class PretrainedModel(Model):
         )
 
     def _is_downloaded_model(self):
-        if not Path(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin').exists():
-            return 0
-        return 1
+        if Path(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin').exists():
+            return True
+        return False
 
     def _load_tokenizer_and_model(self):
-        if not self._is_downloaded_model:
+        if not self._is_downloaded_model():
             self._download_model()
         return GPT2Tokenizer.from_pretrained(
             self.model_path
@@ -144,7 +147,8 @@ class PretrainedModel(Model):
         :param max_len: max length of final joke
         :return: the final joke
         """
-        if not isinstance(text, str) or not isinstance(max_len, int):
+        if not isinstance(text, str)\
+                or not isinstance(max_len, int):
             return 0
 
         if max_len not in [30, 40, 50, 60, 70, 80, 90, 100]:
@@ -179,4 +183,3 @@ class PretrainedModel(Model):
 
 if __name__ == '__main__':
     pass
-
