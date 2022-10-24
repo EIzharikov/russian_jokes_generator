@@ -143,4 +143,4 @@ models/models_config/pretrained/pytorch_model.bin
 
 # temp files with jokes
 
-jokes_history
+jokes_history.txt

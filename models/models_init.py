@@ -11,7 +11,7 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER, TAGS_DICT
 
 
-class Model(ABC):
+class Model(ABC):  # pylint: disable=too-few-public-methods
     """
     Abstract class for Models
     """
@@ -29,7 +29,7 @@ class Model(ABC):
         pass
 
 
-class CustomRuGPT3Model(Model):
+class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
     """
     Custom Model implementation
     """
@@ -108,7 +108,7 @@ class CustomRuGPT3Model(Model):
         return output
 
 
-class PretrainedModel(Model):
+class PretrainedModel(Model):  # pylint: disable=too-few-public-methods
     """
     Pretrained Model implementation
     """
@@ -147,7 +147,7 @@ class PretrainedModel(Model):
         :param max_len: max length of final joke
         :return: the final joke
         """
-        if not isinstance(text, str)\
+        if not isinstance(text, str) \
                 or not isinstance(max_len, int):
             return 0
 

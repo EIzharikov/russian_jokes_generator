@@ -3,12 +3,13 @@ GUI implementation
 """
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
-from message_request import MessageRequest
-from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
+from src.message_request import MessageRequest
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT,\
+    FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
 from src.jokes_saver import JokesSaver
 
 
-class Application:
+class Application: # pylint: disable=too-few-public-methods
     """
     Application implementation
     """
@@ -17,6 +18,28 @@ class Application:
         self._setup_main_window()
         self.mes_request = MessageRequest()
         self.jokes_saver = JokesSaver()
+
+        self.text_widget = Text(
+            self.window,
+            width=20,
+            height=2,
+            bg=BG_COLOR,
+            fg=TEXT_COLOR,
+            font=FONT,
+            padx=5,
+            pady=5,
+        )
+
+        self.bottom_label = Label(
+            self.window,
+            bg=BG_GRAY,
+            height=30)
+
+        self.msg_entry = Entry(
+            self.bottom_label,
+            bg=MESSAGE_ENTRY_BOX_COLOR,
+            fg=TEXT_COLOR,
+            font=FONT)
 
     def run(self):
         """
@@ -32,6 +55,12 @@ class Application:
         self.window.resizable(width=False, height=False)
         self.window.configure(width=800, height=600, bg=BG_COLOR)
 
+        self._create_head_label()
+        self._create_text_widget()
+        self._create_message_entry_box()
+        self._create_buttons()
+
+    def _create_head_label(self):
         # head label
         head_label = Label(
             self.window,
@@ -47,33 +76,24 @@ class Application:
         line = Label(self.window, width=800, bg=BG_GRAY)
         line.place(relwidth=1, rely=0.07, relheight=0.012)
 
+    def _create_text_widget(self):
         # text widget
-        self.text_widget = Text(
-            self.window,
-            width=20,
-            height=2,
-            bg=BG_COLOR,
-            fg=TEXT_COLOR,
-            font=FONT,
-            padx=5,
-            pady=5,
-        )
+
         self.text_widget.place(relheight=0.745, relwidth=1, rely=0.08)
         self.text_widget.configure(cursor="arrow", state=DISABLED)
 
+    def _create_message_entry_box(self):
         # bottom label
-        bottom_label = Label(self.window, bg=BG_GRAY, height=30)
-        bottom_label.place(relwidth=1, rely=0.825)
-
+        self.bottom_label.place(relwidth=1, rely=0.825)
         # message entry box
-        self.msg_entry = Entry(bottom_label, bg=MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
         self.msg_entry.bind("<Return>", self._on_enter_pressed)
 
+    def _create_buttons(self):
         # send button
         send_button = Button(
-            bottom_label,
+            self.bottom_label,
             text="Отправить",
             font=FONT_BOLD,
             width=20,
@@ -91,11 +111,11 @@ class Application:
         m_opt.config(bg=BG_GRAY, font=FONT_BOLD)
         m_opt.place(relx=0.64, rely=0.9, relheight=0.06, relwidth=0.35)
 
-        def m_callback(*args):
+        def m_callback(*args):  # pylint: disable=unused-argument
             self.mes_request.set_model_type(m_variable.get())
             if m_variable.get() == "Наша модель":
                 create_tag_opt_list()
-                self.mes_request.set_tag("Еда")
+                self.mes_request.set_tag('eat')
             else:
                 self.mes_request.set_tag(None)
                 tag_opt = Label(text="")
@@ -112,7 +132,7 @@ class Application:
         l_opt.config(bg=BG_GRAY, font=FONT_BOLD)
         l_opt.place(relx=0.50, rely=0.9, relheight=0.06, relwidth=0.14)
 
-        def l_callback(*args):
+        def l_callback(*args):  # pylint: disable=unused-argument
             self.mes_request.set_length(int(l_variable.get()))
 
         l_variable.trace("w", l_callback)
@@ -141,12 +161,12 @@ class Application:
             tag_opt.config(bg=BG_GRAY, font=FONT_BOLD)
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
-            def tag_callback(*args):
+            def tag_callback(*args):  # pylint: disable=unused-argument
                 self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
 
-    def _on_enter_pressed(self, event):
+    def _on_enter_pressed(self, event):  # pylint: disable=unused-argument
         """
         Works when enter is pressed
         """
@@ -179,5 +199,4 @@ class Application:
 
 
 if __name__ == "__main__":
-    app = Application()
-    app.run()
+    pass
