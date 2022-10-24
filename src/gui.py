@@ -4,7 +4,8 @@ GUI implementation
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
 from message_request import MessageRequest
-from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
+from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT,\
+    FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
 from src.jokes_saver import JokesSaver
 
 

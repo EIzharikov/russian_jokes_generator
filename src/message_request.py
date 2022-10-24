@@ -23,9 +23,6 @@ class MessageRequest:
                f'Tag is {self._tag}\n' \
                f'Text of the message is {self._text}'
 
-    def get_settings(self):
-        return self._text, self._tag, self._length, self._model_type
-
     def process_request(self):
         """
         Process the message request
