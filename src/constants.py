@@ -22,9 +22,9 @@ TAGS_DICT = {
     "Коты": "cats",
     "Пошлые": "poshlye",
     "Про работу": "pro-rabotu",
-    "Компьтеры": "pc",
+    "Компьютеры": "pc",
     "Дети": "children",
-    "Про Штирлеца": "pro-shtirlica",
+    "Про Штирлица": "pro-shtirlica",
     "Про студентов": "pro-studentov",
     "Про соседей": "pro-sosedey"
 }
