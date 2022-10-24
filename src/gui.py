@@ -3,7 +3,7 @@ GUI implementation
 """
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
-from message_request import MessageRequest
+from src.message_request import MessageRequest
 from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT,\
     FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
 from src.jokes_saver import JokesSaver
@@ -33,6 +33,12 @@ class Application: # pylint: disable=too-few-public-methods
         self.window.resizable(width=False, height=False)
         self.window.configure(width=800, height=600, bg=BG_COLOR)
 
+        self._create_head_label()
+        self._create_text_widget()
+        self._create_message_entry_box()
+        self._create_buttons()
+
+    def _create_head_label(self):
         # head label
         head_label = Label(
             self.window,
@@ -48,6 +54,7 @@ class Application: # pylint: disable=too-few-public-methods
         line = Label(self.window, width=800, bg=BG_GRAY)
         line.place(relwidth=1, rely=0.07, relheight=0.012)
 
+    def _create_text_widget(self):
         # text widget
         self.text_widget = Text(
             self.window,
@@ -62,19 +69,20 @@ class Application: # pylint: disable=too-few-public-methods
         self.text_widget.place(relheight=0.745, relwidth=1, rely=0.08)
         self.text_widget.configure(cursor="arrow", state=DISABLED)
 
+    def _create_message_entry_box(self):
         # bottom label
-        bottom_label = Label(self.window, bg=BG_GRAY, height=30)
-        bottom_label.place(relwidth=1, rely=0.825)
-
+        self.bottom_label = Label(self.window, bg=BG_GRAY, height=30)
+        self.bottom_label.place(relwidth=1, rely=0.825)
         # message entry box
-        self.msg_entry = Entry(bottom_label, bg=MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
+        self.msg_entry = Entry(self.bottom_label, bg=MESSAGE_ENTRY_BOX_COLOR, fg=TEXT_COLOR, font=FONT)
         self.msg_entry.place(relwidth=0.74, relheight=0.06, rely=0.008, relx=0.011)
         self.msg_entry.focus()
         self.msg_entry.bind("<Return>", self._on_enter_pressed)
 
+    def _create_buttons(self):
         # send button
         send_button = Button(
-            bottom_label,
+            self.bottom_label,
             text="Отправить",
             font=FONT_BOLD,
             width=20,
@@ -92,12 +100,11 @@ class Application: # pylint: disable=too-few-public-methods
         m_opt.config(bg=BG_GRAY, font=FONT_BOLD)
         m_opt.place(relx=0.64, rely=0.9, relheight=0.06, relwidth=0.35)
 
-        def m_callback(*args):
-            """ Function with unused argument. """
+        def m_callback(*args):  # pylint: disable=unused-argument
             self.mes_request.set_model_type(m_variable.get())
             if m_variable.get() == "Наша модель":
                 create_tag_opt_list()
-                self.mes_request.set_tag("Еда")
+                self.mes_request.set_tag('eat')
             else:
                 self.mes_request.set_tag(None)
                 tag_opt = Label(text="")
@@ -114,8 +121,7 @@ class Application: # pylint: disable=too-few-public-methods
         l_opt.config(bg=BG_GRAY, font=FONT_BOLD)
         l_opt.place(relx=0.50, rely=0.9, relheight=0.06, relwidth=0.14)
 
-        def l_callback(*args):
-            """ Function with unused argument. """
+        def l_callback(*args):  # pylint: disable=unused-argument
             self.mes_request.set_length(int(l_variable.get()))
 
         l_variable.trace("w", l_callback)
@@ -144,8 +150,7 @@ class Application: # pylint: disable=too-few-public-methods
             tag_opt.config(bg=BG_GRAY, font=FONT_BOLD)
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
-            def tag_callback(*args):
-                """ Function with unused argument. """
+            def tag_callback(*args):  # pylint: disable=unused-argument
                 self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
@@ -183,5 +188,5 @@ class Application: # pylint: disable=too-few-public-methods
 
 
 if __name__ == "__main__":
-    app = Application()
-    app.run()
+    pass
+    print(TAGS_DICT.get('Еда'))
