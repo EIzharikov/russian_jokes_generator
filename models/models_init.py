@@ -72,13 +72,13 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
         if not isinstance(text, str) \
                 or not isinstance(max_len, int) \
                 or not isinstance(tag, str):
-            return 0
+            return type(text),type(max_len), type(tag)
 
         if max_len not in list(range(30, 110, 10)):
-            return 0
+            return 1
 
         if tag not in list(TAGS_DICT.values()):
-            return 0
+            return 2
 
         prompt = self._prepare_prompt(text, tag)
         input_ids = self.tokenizer.encode(prompt, return_tensors="pt")

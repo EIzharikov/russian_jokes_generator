@@ -21,9 +21,12 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Test with unittest
+      - name: Test CustomModel
         run: |
-          python3 -m unittest discover -p "*_test.py"
+          python3 -m unittest tests/custom_model_test.py
+      - name: Test with PretrainedModel
+        run: |
+          python3 -m unittest tests/pretrained_model_test.py
       - name: Lint with Pylint
         run: |
           python3 -m pylint $(git ls-files '*.py')
