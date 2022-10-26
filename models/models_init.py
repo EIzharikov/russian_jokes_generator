@@ -8,7 +8,13 @@ from abc import ABC, abstractmethod
 import gdown
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER, TAGS_DICT, CUSTOM_MODEL_ID, PRETRAINED_MODEL_ID
+from src.constants import (
+    CUSTOM_MODEL_FOLDER,
+    PRETRAINED_MODEL_FOLDER,
+    TAGS_DICT,
+    CUSTOM_MODEL_ID,
+    PRETRAINED_MODEL_ID,
+)
 
 
 class Model(ABC):  # pylint: disable=too-few-public-methods
@@ -41,11 +47,11 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
     def _download_model(self):
         gdown.download(
             id=CUSTOM_MODEL_ID,
-            output=str(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin'),
+            output=str(CUSTOM_MODEL_FOLDER / "pytorch_model.bin"),
         )
 
     def _is_downloaded_model(self):
-        if Path(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin').exists():
+        if Path(CUSTOM_MODEL_FOLDER / "pytorch_model.bin").exists():
             return True
         return False
 
@@ -69,9 +75,11 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
         :param max_len: max length of final joke
         :return: the final joke
         """
-        if not isinstance(text, str) \
-                or not isinstance(max_len, int) \
-                or not isinstance(tag, str):
+        if (
+            not isinstance(text, str)
+            or not isinstance(max_len, int)
+            or not isinstance(tag, str)
+        ):
             return 0
 
         if max_len not in list(range(30, 110, 10)):
@@ -96,15 +104,8 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
             pad_token_id=50256,
         )
         output = re.split(
-            "<",
-            re.sub(
-                r"<\|startoftext[\w-]*\|>|©.*",
-                "",
-                list(map(self.tokenizer.decode, result))[0],
-                count=1,
-            ),
+            "<", re.sub(r"[<|>©a-z-]", "", list(map(self.tokenizer.decode, result))[0])
         )[0].split("\n")[0]
-
         return output
 
 
@@ -120,11 +121,11 @@ class PretrainedModel(Model):  # pylint: disable=too-few-public-methods
     def _download_model(self):
         gdown.download(
             id=PRETRAINED_MODEL_ID,
-            output=str(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin'),
+            output=str(PRETRAINED_MODEL_FOLDER / "pytorch_model.bin"),
         )
 
     def _is_downloaded_model(self):
-        if Path(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin').exists():
+        if Path(PRETRAINED_MODEL_FOLDER / "pytorch_model.bin").exists():
             return True
         return False
 
@@ -147,8 +148,7 @@ class PretrainedModel(Model):  # pylint: disable=too-few-public-methods
         :param max_len: max length of final joke
         :return: the final joke
         """
-        if not isinstance(text, str) \
-                or not isinstance(max_len, int):
+        if not isinstance(text, str) or not isinstance(max_len, int):
             return 0
 
         if max_len not in [30, 40, 50, 60, 70, 80, 90, 100]:
@@ -169,17 +169,12 @@ class PretrainedModel(Model):  # pylint: disable=too-few-public-methods
             no_repeat_ngram_size=3,
             pad_token_id=50256,
         )
-        output = re.split(
-            "<",
-            re.sub(
-                r"<\|startoftext[\w-]*\|>|©.*",
-                "",
+        output = re.sub(
+            r"©[\s\w]*]",
+            "",
+            re.split(
+                r"<\|startoftext[a-z-]*\|>|\n",
                 list(map(self.tokenizer.decode, result))[0],
-                count=1,
-            ),
-        )[0].split("\n")[0]
+            )[1],
+        )
         return output
-
-
-if __name__ == '__main__':
-    pass
