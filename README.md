@@ -36,9 +36,9 @@ The generator consists of the following folders:
    
 
    Two models are stored here. Both are based on the same architecture — RuGPT3. 
-   The difference between them is that they are retrained on different datasets: 
-   the first one is retrained on a collection of texts from the site [humornet.ru](https://humornet.ru) and 
-   the second one is retrained on the pre-prepared collection of jokes.
+   The difference between them is fine-tuning on different datasets.
+   Our model was fine-tuned on a collection of texts from [humornet.ru](https://humornet.ru).
+   As for the other model, we are giving credits to [Neural Shit](https://t.me/NeuralShit).
    
 
 2. `spider`
@@ -94,9 +94,3 @@ click on Submit or press Enter. Then your prompt and the generated joke will app
 Our program has an automatic function of saving jokes locally. 
 When you run the generator for the first time, the file `jokes_history.txt` is created, 
 where you can see all the generated jokes.
-
-___
-
-## Resources
-- [First model](https://sbercloud.ru/ru/datahub/rugpt3family/demo-ru-gpt3-xl)
-- [Second model](https://drive.google.com/drive/folders/1A0CL0eKFhns30zrb4hvqwruBvUAoARzX)
