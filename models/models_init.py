@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import gdown
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER, TAGS_DICT
+from src.constants import CUSTOM_MODEL_FOLDER, PRETRAINED_MODEL_FOLDER, TAGS_DICT, CUSTOM_MODEL_ID, PRETRAINED_MODEL_ID
 
 
 class Model(ABC):  # pylint: disable=too-few-public-methods
@@ -40,7 +40,7 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
 
     def _download_model(self):
         gdown.download(
-            id="19Glj9TXG44eG0HAHS3PPGVxn41O2gNYY",
+            id=CUSTOM_MODEL_ID,
             output=str(CUSTOM_MODEL_FOLDER / 'pytorch_model.bin'),
         )
 
@@ -119,7 +119,7 @@ class PretrainedModel(Model):  # pylint: disable=too-few-public-methods
 
     def _download_model(self):
         gdown.download(
-            id="1iJtv6WzShrn23M_ggvtFhXon3dopBA9x",
+            id=PRETRAINED_MODEL_ID,
             output=str(PRETRAINED_MODEL_FOLDER / 'pytorch_model.bin'),
         )
 
