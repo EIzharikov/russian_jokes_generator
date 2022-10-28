@@ -6,6 +6,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 CUSTOM_MODEL_FOLDER = PROJECT_ROOT / 'models' / 'models_config' / 'custom'
 PRETRAINED_MODEL_FOLDER = PROJECT_ROOT / 'models' / 'models_config' / 'pretrained'
+JOKES_SCRAPER_CONFIG_PATH = PROJECT_ROOT / 'spider' / 'spider_settings.json'
 PATH_TO_SAVE = PROJECT_ROOT
 
 CUSTOM_MODEL_ID = "19Glj9TXG44eG0HAHS3PPGVxn41O2gNYY"

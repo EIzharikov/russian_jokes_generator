@@ -2,13 +2,14 @@
 Scraper implementation
 """
 import re
+import json
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from spider_settings import HEADERS, START_URLS
+from src.constants import JOKES_SCRAPER_CONFIG_PATH
 
 
 class JokesSpider:
@@ -19,18 +20,28 @@ class JokesSpider:
     def __init__(self):
         self.urls = []
         self.texts = []
+        self.config = self.load_config()
+
+    @staticmethod
+    def load_config():
+        """
+        Loading spider configuration
+        """
+        with open(JOKES_SCRAPER_CONFIG_PATH, encoding='UTF-8') as json_file:
+            config = json.load(json_file)
+        return config
 
     def get_links(self):
         """
         Getting all links
         """
-        for link in tqdm(START_URLS):
+        for link in tqdm(self.config['start_urls']):
             self.urls.append(link)
-            bs_page = fetch_page(link)
+            bs_page = self.fetch_page(link)
             next_page = bs_page.select_one("span.page_next a")
             while next_page:
                 self.urls.append(next_page.get("href"))
-                bs_page = fetch_page(next_page.get("href"))
+                bs_page = self.fetch_page(next_page.get("href"))
                 next_page = bs_page.select_one("span.page_next a")
 
     def parse(self):
@@ -39,7 +50,7 @@ class JokesSpider:
         """
         self.get_links()
         for url in tqdm(self.urls):
-            response_bs = fetch_page(url)
+            response_bs = self.fetch_page(url)
             jokes = response_bs.select("article.block.story.shortstory")
             for joke in jokes:
                 tag = re.search(r"(?<=humornet.ru/anekdot/)[\w-]+", url).group()
@@ -62,14 +73,13 @@ class JokesSpider:
         data = self._turn_to_tabular()
         data.to_csv("anecdotes_dataset.csv")
 
-
-def fetch_page(url):
-    """
-    Getting the soup
-    """
-    response = requests.get(url, headers=HEADERS,timeout=15).text
-    soup = BeautifulSoup(response, features="lxml")
-    return soup
+    def fetch_page(self, url):
+        """
+        Getting the soup
+        """
+        response = requests.get(url, headers=self.config['headers'], timeout=15).text
+        soup = BeautifulSoup(response, features="lxml")
+        return soup
 
 
 if __name__ == "__main__":

@@ -1,0 +1,15 @@
+{
+  "headers" : {"user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"},
+  "start_urls" : [
+    "https://humornet.ru/anekdot/eat/",
+    "https://humornet.ru/anekdot/politics/",
+    "https://humornet.ru/anekdot/cats/",
+    "https://humornet.ru/anekdot/poshlye/",
+    "https://humornet.ru/anekdot/pro-rabotu/",
+    "https://humornet.ru/anekdot/pc/",
+    "https://humornet.ru/anekdot/children/",
+    "https://humornet.ru/anekdot/pro-shtirlica/",
+    "https://humornet.ru/anekdot/pro-studentov/",
+    "https://humornet.ru/anekdot/pro-sosedey/"
+  ]
+}
