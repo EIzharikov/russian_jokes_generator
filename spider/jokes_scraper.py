@@ -27,7 +27,7 @@ class JokesSpider:
         """
         Loading spider configuration
         """
-        with open(JOKES_SCRAPER_CONFIG_PATH) as json_file:
+        with open(JOKES_SCRAPER_CONFIG_PATH, encoding='UTF-8') as json_file:
             config = json.load(json_file)
         return config
 
