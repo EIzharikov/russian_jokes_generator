@@ -3,10 +3,11 @@ GUI implementation
 """
 from tkinter import Tk, Label, Text, DISABLED, Entry, Button, OptionMenu, StringVar, END, NORMAL
 
-from src.message_request import MessageRequest
 from src.constants import BG_GRAY, BG_COLOR, TEXT_COLOR, FONT, \
-    FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR, TAGS_DICT
-from src.jokes_saver import JokesSaver
+    FONT_BOLD, MESSAGE_ENTRY_BOX_COLOR
+from utils.message_request import MessageRequest
+from utils.jokes_saver import JokesSaver
+from utils.tags_translator import TagTranslator
 
 
 class Application:  # pylint: disable=too-few-public-methods
@@ -18,6 +19,8 @@ class Application:  # pylint: disable=too-few-public-methods
         self.window = Tk()
         self.mes_request = MessageRequest()
         self.jokes_saver = JokesSaver()
+        self.tag_translator = TagTranslator()
+
 
         self.text_widget = Text(
             self.window,
@@ -49,13 +52,19 @@ class Application:  # pylint: disable=too-few-public-methods
         """
         self.window.mainloop()
 
+    def set_resolution(self, width=800, height=600):
+        """
+        Changes the resolution of app
+        """
+        self.window.configure(width=width, height=height, bg=BG_COLOR)
+
     def _setup_main_window(self):
         """
         The setup of main window
         """
         self.window.title("JOKE GENERATOR")
         self.window.resizable(width=False, height=False)
-        self.window.configure(width=800, height=600, bg=BG_COLOR)
+        self.set_resolution()
 
         self._create_head_label()
         self._create_text_widget()
@@ -163,7 +172,7 @@ class Application:  # pylint: disable=too-few-public-methods
             tag_opt.place(relx=0.15, rely=0.9, relheight=0.06, relwidth=0.34)
 
             def tag_callback(*args):  # pylint: disable=unused-argument
-                self.mes_request.set_tag(TAGS_DICT.get(tag_variable.get()))
+                self.mes_request.set_tag(self.tag_translator.get_tag(tag_variable.get()))
 
             tag_variable.trace("w", tag_callback)
 

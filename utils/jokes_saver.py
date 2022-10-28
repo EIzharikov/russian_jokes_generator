@@ -4,10 +4,11 @@ Jokes saver implementation
 from src.constants import PATH_TO_SAVE
 
 
-class JokesSaver:  # pylint: disable=too-few-public-methods
+class JokesSaver:
     """
     Jokes saver implementation
     """
+
     def __init__(self):
         self._path_to_save = PATH_TO_SAVE
 
@@ -18,10 +19,16 @@ class JokesSaver:  # pylint: disable=too-few-public-methods
         :param final_joke: full joke
         :return: nothing
         """
-        with open(self._path_to_save / 'jokes_history.txt', 'a', encoding='UTF-8') as file:
+        with open(self.get_path() / 'jokes_history.txt', 'a', encoding='UTF-8') as file:
             file.write(f'Начало шутки:  {joke_beginning}\n'
                        f'Вся шутка: {final_joke}\n'
                        f'<------------------------------------------->\n')
+
+    def get_path(self):
+        """
+        Getting path for joke saving
+        """
+        return self._path_to_save
 
 
 if __name__ == '__main__':
