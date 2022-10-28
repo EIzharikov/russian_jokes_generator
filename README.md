@@ -17,7 +17,7 @@ and the program will continue the text.
 **Team-lead / NLP-engineer**: Polina Savinova  
 **Logic and Interface developer**: Egor Zharikov  
 **QA / Tech Writer**: Vita Zaytseva  
-**Developer**: Evgenia Pareshina
+**Product Manager**: Evgenia Pareshina
 
 ___
 
