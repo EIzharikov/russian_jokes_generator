@@ -25,6 +25,9 @@ class JokesSaver:
                        f'<------------------------------------------->\n')
 
     def get_path(self):
+        """
+        Getting path for joke saving
+        """
         return self._path_to_save
 
 

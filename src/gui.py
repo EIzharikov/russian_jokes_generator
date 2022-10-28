@@ -21,8 +21,6 @@ class Application:  # pylint: disable=too-few-public-methods
         self.jokes_saver = JokesSaver()
         self.tag_translator = TagTranslator()
 
-        self.width = 800
-        self.height = 600
 
         self.text_widget = Text(
             self.window,
@@ -54,12 +52,11 @@ class Application:  # pylint: disable=too-few-public-methods
         """
         self.window.mainloop()
 
-    def change_resolution(self, width, height):
+    def set_resolution(self, width=800, height=600):
         """
         Changes the resolution of app
         """
-        self.width = width
-        self.height = height
+        self.window.configure(width=width, height=height, bg=BG_COLOR)
 
     def _setup_main_window(self):
         """
@@ -67,7 +64,7 @@ class Application:  # pylint: disable=too-few-public-methods
         """
         self.window.title("JOKE GENERATOR")
         self.window.resizable(width=False, height=False)
-        self.window.configure(width=self.width, height=self.height, bg=BG_COLOR)
+        self.set_resolution()
 
         self._create_head_label()
         self._create_text_widget()

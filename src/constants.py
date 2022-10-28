@@ -18,5 +18,3 @@ MESSAGE_ENTRY_BOX_COLOR = "#2C3E50"
 
 FONT = "Helvetica 14"
 FONT_BOLD = "Helvetica 13 bold"
-
-

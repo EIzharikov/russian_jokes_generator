@@ -1,4 +1,12 @@
+"""
+Tag Translator implementation
+"""
+
+
 class TagTranslator:
+    """
+    Class for tag translation
+    """
     def __init__(self):
         self.tags_dict = {
             "Еда": "eat",
@@ -14,7 +22,13 @@ class TagTranslator:
         }
 
     def get_tag(self, tag):
+        """
+        Get tag value from tags_dict
+        """
         return self.tags_dict.get(tag)
 
     def get_tag_dict_values(self):
+        """
+        Get all tags values
+        """
         return self.tags_dict.values()
