@@ -11,10 +11,10 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from src.constants import (
     CUSTOM_MODEL_FOLDER,
     PRETRAINED_MODEL_FOLDER,
-    TAGS_DICT,
     CUSTOM_MODEL_ID,
     PRETRAINED_MODEL_ID,
 )
+from utils.tags_translator import TagTranslator
 
 
 class Model(ABC):  # pylint: disable=too-few-public-methods
@@ -43,6 +43,7 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
     def __init__(self):
         self.model_path = CUSTOM_MODEL_FOLDER
         self.tokenizer, self.model = self._load_tokenizer_and_model()
+        self.tag_translator = TagTranslator()
 
     def _download_model(self):
         gdown.download(
@@ -85,7 +86,7 @@ class CustomRuGPT3Model(Model):  # pylint: disable=too-few-public-methods
         if max_len not in list(range(30, 110, 10)):
             return 0
 
-        if tag not in list(TAGS_DICT.values()):
+        if tag not in list(self.tag_translator.get_tag_dict_values()):
             return 0
 
         prompt = self._prepare_prompt(text, tag)
