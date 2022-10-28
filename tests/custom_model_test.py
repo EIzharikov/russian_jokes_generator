@@ -29,14 +29,6 @@ class CustomModelTest(unittest.TestCase):
             actual = self.custom_model.generate_joke(bad_input, 'eat', 40)
             self.assertEqual(expected, actual)
 
-    def test_max_len_ideal(self):
-        """
-        Ideal joke generation scenario
-        """
-        expected = ''
-        actual = self.custom_model.generate_joke('hello', 'eat', 40)
-        self.assertEqual(type(expected), type(actual))
-
     def test_max_len_bad_input(self):
         """
         Invalid input max_len check
@@ -46,14 +38,6 @@ class CustomModelTest(unittest.TestCase):
         for bad_input in bad_inputs:
             actual = self.custom_model.generate_joke('hello', 'eat', bad_input)
             self.assertEqual(expected, actual)
-
-    def test_tag_type_ideal(self):
-        """
-        Ideal joke generation scenario
-        """
-        expected = ''
-        actual = self.custom_model.generate_joke('hello', 'eat', 40)
-        self.assertEqual(type(expected), type(actual))
 
     def test_tag_bad_input(self):
         """

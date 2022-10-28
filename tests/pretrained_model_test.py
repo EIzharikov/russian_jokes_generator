@@ -30,14 +30,6 @@ class PretrainedModelTest(unittest.TestCase):
             actual = self.pretrained_model.generate_joke(bad_input, 40)
             self.assertEqual(expected, actual)
 
-    def test_max_len_ideal(self):
-        """
-        Ideal joke generation scenario
-        """
-        expected = ''
-        actual = self.pretrained_model.generate_joke('hello', 40)
-        self.assertEqual(type(expected), type(actual))
-
     def test_max_len_bad_input(self):
         """
         Invalid input max_len check

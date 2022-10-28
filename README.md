@@ -76,7 +76,13 @@ ___
 
 ## Running
 ### Program launch
-To run the generator you need to open the file `main.py` in the folder `src` and run the method.
+Before starting check that you have installed all the required modules. 
+If not, open the console and write the command:
+```
+pip install -r requirements.txt
+```
+Now you are ready to start!  
+To run the generator you need to open the file `main.py` in the folder `src` and run the method:
 ```python
 if __name__ == '__main__':
     app = Application()
@@ -85,9 +91,29 @@ if __name__ == '__main__':
 
 ### Interface
 When you start the generator, the Joke Generator front-end application will open. 
-At the bottom you can see drop-down lists where you can choose `model`, `length` and `tag` (if it is a "Наша" model). 
+At the bottom you can see 2 drop-down lists: `model` and `length`. 
+You can choose "Чужая" or "Наша" model. If you select "Наша" model, you can select a `tag` or, in other words, 
+a topic of the future generated joke. There are 10 themes to choose from:
+1. Food
+2. Politics
+3. Cats
+4. Vulgar
+5. Job
+6. Computers
+7. Children
+8. Stirlitz
+9. Students
+10. Neighbours
+
+Besides, you can choose the `length` of the generated joke from 30 to 100 characters.
+
+Above the drop-down lists there is a field where you can write the prompt for a joke. 
+To the right of this field there is a button "Отправить". After clicking on it or pressing Enter, 
+in the window above you can see your prompt and after a while the generated anecdote itself.
+
+### Running
 To get the generated joke, you need to enter a prompt for a joke in the field, select all categories and 
-click on Submit or press Enter. Then your prompt and the generated joke will appear.
+click on "Отправить" or press Enter. Then your prompt and the generated joke will appear.
 
 
 ### Saving
